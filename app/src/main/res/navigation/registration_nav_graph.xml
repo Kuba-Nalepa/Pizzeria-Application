@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registration_nav_graph"
+    app:startDestination="@id/logInFragment">
+
+    <fragment
+        tools:layout="@layout/fragment_log_in"
+        android:id="@+id/logInFragment"
+        android:name="com.nalepa.pizzeriaapplication.authorization.LogInFragment"
+        android:label="@string/login_label" >
+        <action
+            android:id="@+id/action_logInFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+
+    <fragment
+        tools:layout="@layout/fragment_registration"
+        android:id="@+id/registrationFragment"
+        android:name="com.nalepa.pizzeriaapplication.authorization.RegistrationFragment"
+        android:label="@string/registration_label" />
+</navigation>

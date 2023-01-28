@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "219016275008",
+    "project_id": "pizzeria-application",
+    "storage_bucket": "pizzeria-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219016275008:android:375cd9f06dbc3236bdeba5",
+        "android_client_info": {
+          "package_name": "com.nalepa.pizzeriaapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "219016275008-3aqhf5nse8v97bp93qjsktjfog0n83ch.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxzrNgXlPJBkTu4TutmW_rIySpbgut73w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "219016275008-3aqhf5nse8v97bp93qjsktjfog0n83ch.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

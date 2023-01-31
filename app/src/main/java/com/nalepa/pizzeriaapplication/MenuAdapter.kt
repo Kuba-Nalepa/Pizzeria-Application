@@ -23,6 +23,7 @@ class MenuAdapter(private val listener: OnPizzaItemClick): RecyclerView.Adapter<
     inner class MenuViewHolder(binding: RecyclerMenuListItemBinding): RecyclerView.ViewHolder(binding.root) {
         val pizzaName = binding.pizzaName
         val pizzaImage = binding.pizzaImage
+        val pizzaPrice = binding.pizzaPrice
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
@@ -43,17 +44,8 @@ class MenuAdapter(private val listener: OnPizzaItemClick): RecyclerView.Adapter<
         Glide.with(holder.itemView)
             .load(menuList[holder.adapterPosition].image)
             .into(holder.pizzaImage)
+        holder.pizzaPrice.text = " Min. ${menuList[position].sizes["small"]?.price.toString()} $"
     }
-
-//    private fun bindData(holder: MenuViewHolder) {
-//        val pizzaName = holder.itemView.findViewById<TextView>(R.id.pizzaName)
-//        val pizzaImage = holder.itemView.findViewById<ImageView>(R.id.pizzaImage)
-//
-//        pizzaName.text = menuList[holder.adapterPosition].name
-//        Glide.with(holder.itemView)
-//            .load(menuList[holder.adapterPosition].image)
-//            .into(pizzaImage)
-//    }
 }
 interface OnPizzaItemClick {
     fun onPizzaClick(pizza: Pizza, position: Int)

@@ -19,5 +19,9 @@
         android:id="@+id/pizzaDetailsFragment"
         android:name="com.nalepa.pizzeriaapplication.fragments.PizzaDetailsFragment"
         android:label="Pizza details"
-        tools:layout="@layout/fragment_pizza_details" />
+        tools:layout="@layout/fragment_pizza_details" >
+        <argument
+            android:name="id"
+            app:argType="string"/>
+    </fragment>
 </navigation>

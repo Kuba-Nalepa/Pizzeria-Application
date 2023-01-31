@@ -45,14 +45,34 @@ class FirebaseRepository {
 
         cloud.collection("menu_demo").get()
             .addOnSuccessListener {
-                val menu = it.toObjects(Pizza::class.java)
+                val menu = it.documents.map { doc ->
+                    val pizza = doc.toObject(Pizza::class.java)!!
+                    pizza.id = doc.reference.id
+
+                    pizza
+                }
                 cloudResult.postValue(menu)
             }
             .addOnFailureListener {
                 Log.d("repository", it.message.toString())
             }
+
         return cloudResult
     }
 
+    fun getPizzaDetails(id: String): LiveData<Pizza> {
 
+        val cloudResult = MutableLiveData<Pizza>()
+        cloud.collection("menu_demo").document(id).get()
+            .addOnSuccessListener {
+                val pizzaDetails = it.toObject(Pizza::class.java)
+                pizzaDetails?.id = it.reference.id
+                cloudResult.postValue(pizzaDetails!!)
+            }
+            .addOnFailureListener {
+                Log.d("GetPizzaDetails exec", it.message.toString())
+            }
+
+        return cloudResult
+    }
 }

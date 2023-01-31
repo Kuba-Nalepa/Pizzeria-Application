@@ -1,44 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.HomeFragment">
+<layout>
+        <data>
+                <variable
+                    name="homeFragment"
+                    type="com.nalepa.pizzeriaapplication.fragments.HomeFragment" />
+                
+                <variable
+                    name="homeViewModel"
+                    type="com.nalepa.pizzeriaapplication.viewmodels.HomeViewModel" />
+        </data>
+        
 
-        <LinearLayout
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:layout_height="match_parent"
+            tools:context=".fragments.HomeFragment">
+        
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="250dp"
-                    android:orientation="vertical"
-                    android:background="@drawable/menu_background"
-                    android:gravity="center">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Your pizza's friends"
-                            android:textSize="16sp"
-                            android:textStyle="italic"
-                            android:textAlignment="center"
-                            android:padding="15dp"
-                            android:textColor="@color/white"
-                            android:background="#CC090A0A" />
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
-                    tools:listitem="@layout/recycler_menu_list_item"/>
-        </LinearLayout>
-
-
-
-</ScrollView>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+        
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="250dp"
+                            android:orientation="vertical"
+                            android:background="@drawable/menu_background"
+                            android:gravity="center">
+        
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Your pizza's friends"
+                                    android:textSize="16sp"
+                                    android:textStyle="italic"
+                                    android:textAlignment="center"
+                                    android:padding="15dp"
+                                    android:textColor="@color/white"
+                                    android:background="#CC090A0A" />
+        
+                        </LinearLayout>
+        
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            tools:listitem="@layout/recycler_menu_list_item"/>
+                </LinearLayout>
+        
+        
+        
+        </ScrollView>
+</layout>

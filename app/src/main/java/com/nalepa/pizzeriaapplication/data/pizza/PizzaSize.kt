@@ -5,3 +5,9 @@ data class PizzaSize(
     var price: Int = 0,
     var diameter: Int = 0
 )
+
+data class Sizes(
+    var small: PizzaSize = PizzaSize(),
+    var medium: PizzaSize = PizzaSize(),
+    var large: PizzaSize = PizzaSize()
+)

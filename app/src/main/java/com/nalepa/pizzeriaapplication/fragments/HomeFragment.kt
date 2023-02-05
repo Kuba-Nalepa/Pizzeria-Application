@@ -42,7 +42,6 @@ class HomeFragment : Fragment(), OnPizzaItemClick {
     }
 
     override fun onPizzaClick(pizza: Pizza, position: Int) {
-        Toast.makeText(requireContext(), pizza.name, Toast.LENGTH_SHORT).show()
         val pizzaPath = pizza.id
         val action = HomeFragmentDirections.actionHomeFragmentToPizzaDetailsFragment(pizzaPath!!)
         findNavController().navigate(action)

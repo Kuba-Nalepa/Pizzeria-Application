@@ -3,4 +3,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_label">Welcome to Pizzeria Application</string>
     <string name="registration_label">Create account</string>
+    <string name="pizza_name">%s</string>
+    <string name="pizza_ingredients">$d</string>
+    <string name="pizza_price">%d $</string>
+    <string name="pizza_diameter">%s cm</string>
 </resources>

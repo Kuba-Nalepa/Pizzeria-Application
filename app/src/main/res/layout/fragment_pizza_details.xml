@@ -3,12 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="pizzaDetailsFragment"
-            type="com.nalepa.pizzeriaapplication.fragments.PizzaDetailsFragment" />
-        
-        <variable
-            name="pizzaDetailsViewModel"
-            type="com.nalepa.pizzeriaapplication.viewmodels.PizzaDetailsViewModel" />
+            name="viewModel"
+            type="com.nalepa.pizzeriaapplication.viewmodel.SharedViewModel" />
     </data>
 
     <LinearLayout

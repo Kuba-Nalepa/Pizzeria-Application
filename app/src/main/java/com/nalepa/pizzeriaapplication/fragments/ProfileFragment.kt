@@ -1,20 +1,18 @@
 package com.nalepa.pizzeriaapplication.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import com.google.firebase.auth.FirebaseAuth
 import com.nalepa.pizzeriaapplication.BaseFragment
 import com.nalepa.pizzeriaapplication.R
-import com.nalepa.pizzeriaapplication.data.User
 import com.nalepa.pizzeriaapplication.databinding.FragmentProfileBinding
-import com.nalepa.pizzeriaapplication.viewmodels.ProfileViewModel
+import com.nalepa.pizzeriaapplication.viewmodel.SharedViewModel
 
 class ProfileFragment : BaseFragment(), MenuProvider {
     private var fbAuth = FirebaseAuth.getInstance()
-    private val profileViewModel by viewModels<ProfileViewModel>()
+    private val viewModel by viewModels<SharedViewModel>()
     private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
@@ -56,7 +54,7 @@ class ProfileFragment : BaseFragment(), MenuProvider {
     }
 
     private fun setProfileDetails() {
-        profileViewModel.user.observe(viewLifecycleOwner) {user ->
+        viewModel.user.observe(viewLifecycleOwner) { user ->
             binding.emailTextView.text = user?.email
             if(user?.name == "") {
                 binding.nameTextView.text = "Set name"

@@ -2,6 +2,7 @@ package com.nalepa.pizzeriaapplication.fragments
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +15,12 @@ import com.nalepa.pizzeriaapplication.data.order.OrderItem
 import com.nalepa.pizzeriaapplication.data.pizza.Pizza
 import com.nalepa.pizzeriaapplication.data.pizza.PizzaSize
 import com.nalepa.pizzeriaapplication.databinding.FragmentPizzaDetailsBinding
-import com.nalepa.pizzeriaapplication.repository.FirebaseRepository
-import com.nalepa.pizzeriaapplication.viewmodels.PizzaDetailsViewModel
+import com.nalepa.pizzeriaapplication.viewmodel.SharedViewModel
 
 
 class PizzaDetailsFragment : Fragment() {
     private lateinit var binding: FragmentPizzaDetailsBinding
-    private val pizzaDetailsViewModel by viewModels<PizzaDetailsViewModel>()
+    private val viewModel by viewModels<SharedViewModel>()
     private val navigationArgs: PizzaDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -33,24 +33,24 @@ class PizzaDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pizzaDetailsViewModel.retrievePizza(navigationArgs.id)
+        viewModel.retrievePizza(navigationArgs.id)
 
-        pizzaDetailsViewModel.pizza.observe(viewLifecycleOwner) { pizza ->
+        viewModel.pizza.observe(viewLifecycleOwner) { pizza ->
             bindViews(pizza)
 
             binding.pizzaSize.setOnCheckedChangeListener { _, checkedId ->
                 pizza.sizes.apply {
                     when(checkedId) {
                         binding.small.id -> {
-                            pizzaDetailsViewModel.setPizzaSize(small)
+                            viewModel.setPizzaSize(small)
 
                         }
                         binding.medium.id -> {
-                            pizzaDetailsViewModel.setPizzaSize(medium)
+                            viewModel.setPizzaSize(medium)
 
                         }
                         binding.large.id -> {
-                            pizzaDetailsViewModel.setPizzaSize(large)
+                            viewModel.setPizzaSize(large)
 
                         }
                     }
@@ -59,31 +59,40 @@ class PizzaDetailsFragment : Fragment() {
             handleCreateOrder()
         }
 
-        pizzaDetailsViewModel.pizzaSize.observe(viewLifecycleOwner) {
+        viewModel.pizzaSize.observe(viewLifecycleOwner) {
             binding.pizzaPrice.text = String.format(getString(R.string.pizza_price), it.price)
             binding.pizzaDiameter.text = String.format(getString(R.string.pizza_diameter), it.diameter)
 
             handleCreateOrder()
         }
 
-        pizzaDetailsViewModel.quantity.observe(viewLifecycleOwner) {
-            binding.quantity.text = pizzaDetailsViewModel.quantity.value.toString()
+        viewModel.quantity.observe(viewLifecycleOwner) {
+            binding.quantity.text = viewModel.quantity.value.toString()
 
             handleCreateOrder()
         }
 
+        viewModel.price.observe(viewLifecycleOwner) {
+            binding.pizzaPrice.text = String.format(getString(R.string.pizza_price), it)
+        }
+
         binding.addQuantity.setOnClickListener {
-            pizzaDetailsViewModel.increaseQuantity()
+            viewModel.increaseQuantity()
         }
 
         binding.subtractQuantity.setOnClickListener {
-            pizzaDetailsViewModel.decreaseQuantity()
+            viewModel.decreaseQuantity()
         }
 
         binding.addToCart.setOnClickListener {
-            pizzaDetailsViewModel.apply {
-                val createOrder = OrderItem(pizza.value!!, pizzaSize.value!!, quantity.value!!)
-            // take order
+            viewModel.apply {
+                val newOrder = OrderItem(
+                    name = pizza.value!!.name,
+                    size = pizzaSize.value!!,
+                    quantity = quantity.value!!,
+                    price = price.value!!
+                )
+                addItemToOrderItems(newOrder)
             }
         }
     }
@@ -100,7 +109,7 @@ class PizzaDetailsFragment : Fragment() {
     }
 
     private fun handleCreateOrder() {
-        pizzaDetailsViewModel.apply {
+        viewModel.apply {
             if (pizza.value != null && pizzaSize.value != null && quantity.value != null ) {
                 binding.addToCart.isEnabled = quantity.value != 0 && pizzaSize.value != PizzaSize()
             }

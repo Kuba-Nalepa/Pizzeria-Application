@@ -5,6 +5,6 @@
     <string name="registration_label">Create account</string>
     <string name="pizza_name">%s</string>
     <string name="pizza_ingredients">$d</string>
-    <string name="pizza_price">%d $</string>
+    <string name="pizza_price">%s $</string>
     <string name="pizza_diameter">%s cm</string>
 </resources>

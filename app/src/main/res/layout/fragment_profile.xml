@@ -5,10 +5,10 @@
         <variable
             name="profileFragment"
             type="com.nalepa.pizzeriaapplication.fragments.ProfileFragment" />
-        
+
         <variable
-            name="profileViewModel"
-            type="com.nalepa.pizzeriaapplication.viewmodels.ProfileViewModel" />
+            name="viewModel"
+            type="com.nalepa.pizzeriaapplication.viewmodel.SharedViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -11,12 +11,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.nalepa.pizzeriaapplication.data.User
 import com.nalepa.pizzeriaapplication.databinding.FragmentRegistrationBinding
-import com.nalepa.pizzeriaapplication.viewmodels.RegistrationViewModel
+import com.nalepa.pizzeriaapplication.viewmodel.SharedViewModel
 
 class RegistrationFragment : Fragment() {
     private lateinit var binding: FragmentRegistrationBinding
     private val fbAuth = FirebaseAuth.getInstance()
-    private val registrationViewModel by activityViewModels<RegistrationViewModel>()
+    private val viewModel by activityViewModels<SharedViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,8 +49,9 @@ class RegistrationFragment : Fragment() {
                                "",
                                "",
                                fbAuth.currentUser?.email!!,
-                               listOf())
-                           registrationViewModel.createNewUser(user)
+                               listOf()
+                           )
+                           viewModel.createNewUser(user)
                            Snackbar.make(requireView(),"Successfully registered!", Snackbar.LENGTH_LONG).show()
                            findNavController().navigateUp()
                        }

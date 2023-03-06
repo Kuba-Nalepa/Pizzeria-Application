@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.storage.FirebaseStorage
 import com.nalepa.pizzeriaapplication.data.User
+import com.nalepa.pizzeriaapplication.data.order.Item
 import com.nalepa.pizzeriaapplication.data.order.Order
-import com.nalepa.pizzeriaapplication.data.order.OrderItem
 import com.nalepa.pizzeriaapplication.data.pizza.Pizza
+import java.sql.Date
 
 class FirebaseRepository {
 
@@ -25,12 +25,27 @@ class FirebaseRepository {
 
     }
 
+    fun createOrder(order: Order) {
+        val currentUser = auth.currentUser?.uid
+        cloud.collection("users").document(currentUser!!).collection("cart")
+            .get().addOnSuccessListener {
+                cloud.collection("users").document(currentUser).collection("order")
+                    .add(order)
+                    .addOnSuccessListener {
+                        it.update("id", it.id)
+                    }
+                    .addOnFailureListener {
+                        Log.d("Repository",it.message.toString())
+                    }
+            }
+    }
+
     fun getCurrentUserData() : LiveData<User> {
         val cloudResult = MutableLiveData<User>()
-        val uid = auth.currentUser?.uid
+        val currentUser = auth.currentUser?.uid
 
         cloud.collection("users")
-            .document(uid!!)
+            .document(currentUser!!)
             .get()
             .addOnSuccessListener {
                 val user = it.toObject(User::class.java)
@@ -69,7 +84,7 @@ class FirebaseRepository {
         cloud.collection("menu_demo").document(id).get()
             .addOnSuccessListener {
                 val pizzaDetails = it.toObject(Pizza::class.java)
-                pizzaDetails?.id = it.reference.id
+                pizzaDetails?.id = it.id
                 cloudResult.postValue(pizzaDetails!!)
             }
             .addOnFailureListener {
@@ -78,31 +93,18 @@ class FirebaseRepository {
 
         return cloudResult
     }
-    fun addItemToUsersOrder(orderItem: OrderItem) {
-        val currentUserId = auth.currentUser?.uid
-        cloud.collection("users").document(currentUserId!!).collection("order")
-            .add(hashMapOf(
-                "name" to orderItem.name,
-                "size" to orderItem.size,
-                "quantity" to orderItem.quantity,
-                "price" to orderItem.price
-            ))
-            .addOnFailureListener {
-                Log.d("Repository", it.message.toString())
-            }
-    }
 
-    fun getCurrentUserOrder(): LiveData<List<OrderItem>> {
-            val cloudResult = MutableLiveData<List<OrderItem>>()
-            val currentUser = auth.currentUser?.uid
-        cloud.collection("users").document(currentUser!!).collection("order")
+    fun getCurrentUserItems(): LiveData<List<Item>> {
+        val cloudResult = MutableLiveData<List<Item>>()
+        val currentUser = auth.currentUser?.uid
+        cloud.collection("users").document(currentUser!!).collection("cart")
             .addSnapshotListener { snapshot, e ->
                 if(e != null ){
                     Log.w("Repository","Listen failed due to ${e.message.toString()}", )
                 }
 
                 val orderItem = snapshot?.map {
-                    val item = it.toObject(OrderItem::class.java)
+                    val item = it.toObject(Item::class.java)
                     item.id = it.reference.id
 
                     item
@@ -112,17 +114,32 @@ class FirebaseRepository {
         return cloudResult
     }
 
-    fun updateOrderDetails(orderItem: OrderItem) {
-        val currentUser = auth.currentUser?.uid
-
-        cloud.collection("users").document(currentUser!!).collection("order")
-            .document(orderItem.id).update("quantity", orderItem.quantity, "price", orderItem.price)
+    fun addItemToCart(item: Item) {
+        val currentUserId = auth.currentUser?.uid
+        cloud.collection("users").document(currentUserId!!).collection("cart")
+            .add(item)
+            .addOnSuccessListener {
+                it.update("id", it.id)
+            }
+            .addOnFailureListener {
+                Log.d("Repository", it.message.toString())
+            }
     }
 
-    fun deleteOrderItem(orderItem: OrderItem) {
+
+    fun updateItemDetails(item: Item) {
         val currentUser = auth.currentUser?.uid
 
-        cloud.collection("users").document(currentUser!!).collection("order")
-            .document(orderItem.id).delete()
+        cloud.collection("users").document(currentUser!!).collection("cart")
+            .document(item.id).update(
+                "quantity", item.quantity,
+                "totalPrice", item.totalPrice)
+    }
+
+    fun deleteItem(item: Item) {
+        val currentUser = auth.currentUser?.uid
+
+        cloud.collection("users").document(currentUser!!).collection("cart")
+            .document(item.id).delete()
     }
 }

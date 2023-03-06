@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nalepa.pizzeriaapplication.data.User
-import com.nalepa.pizzeriaapplication.data.order.OrderItem
+import com.nalepa.pizzeriaapplication.data.order.Cart
+import com.nalepa.pizzeriaapplication.data.order.Item
+import com.nalepa.pizzeriaapplication.data.order.Order
 import com.nalepa.pizzeriaapplication.data.pizza.Pizza
 import com.nalepa.pizzeriaapplication.data.pizza.PizzaSize
 import com.nalepa.pizzeriaapplication.repository.FirebaseRepository
@@ -18,7 +20,7 @@ class SharedViewModel: ViewModel() {
 
     val user = repository.getCurrentUserData()
     val menu = repository.getMenuList()
-    val userOrder = repository.getCurrentUserOrder()
+    val userItems = repository.getCurrentUserItems()
     var pizza: LiveData<Pizza> = MutableLiveData()
 
     fun retrievePizza(id: String) {
@@ -49,18 +51,22 @@ class SharedViewModel: ViewModel() {
         setPrice()
     }
 
-    fun addItemToOrderItems(orderItem: OrderItem) {
-        repository.addItemToUsersOrder(orderItem)
+    fun addItemToCart(item: Item) {
+        repository.addItemToCart(item)
+    }
+
+    fun createOrder(order: Order) {
+        repository.createOrder(order)
     }
 
     private fun setPrice() {
         _price.value = _pizzaSize.value?.price?.times(_quantity.value!!)
     }
 
-    fun deleteOrder(orderItem: OrderItem) {
-        repository.deleteOrderItem(orderItem)
+    fun deleteOrder(orderItem: Item) {
+        repository.deleteItem(orderItem)
     }
-    fun updateOrderDetails(orderItem: OrderItem) {
-        repository.updateOrderDetails(orderItem)
+    fun updateOrderDetails(orderItem: Item) {
+        repository.updateItemDetails(orderItem)
     }
 }

@@ -167,11 +167,10 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/addToCart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_height="40dp"
+                style="@style/DefaultButton"
                 android:text="Add to cart"
-                android:enabled="false"
-                android:textColor="@color/black" />
+                android:enabled="false" />
         </LinearLayout>
     
     

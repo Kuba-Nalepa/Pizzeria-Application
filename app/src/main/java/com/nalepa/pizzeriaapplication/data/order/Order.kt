@@ -1,9 +1,9 @@
 package com.nalepa.pizzeriaapplication.data.order
 
-import java.text.SimpleDateFormat
+import java.sql.Date
 
 data class Order(
-    val id: String,
-    val items: List<OrderItem>,
-    val date: SimpleDateFormat
+    var id: String = "",
+    var date: Date = Date(java.util.Date().time),
+    var items: List<Item> = listOf()
 )

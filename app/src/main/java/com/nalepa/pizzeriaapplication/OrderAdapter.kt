@@ -4,15 +4,14 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nalepa.pizzeriaapplication.data.order.OrderItem
+import com.nalepa.pizzeriaapplication.data.order.Item
 import com.nalepa.pizzeriaapplication.databinding.RecyclerOrderedListItemBinding
-import com.nalepa.pizzeriaapplication.repository.FirebaseRepository
 
 class OrderAdapter(private val listener: OnOrderClicked) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
-    private val orderList = ArrayList<OrderItem>()
+    private val orderList = ArrayList<Item>()
 
-    fun setCurrentUserOrder(list: List<OrderItem>) {
+    fun setCurrentUserOrder(list: List<Item>) {
         orderList.clear()
         orderList.addAll(list)
         notifyDataSetChanged()
@@ -42,7 +41,7 @@ class OrderAdapter(private val listener: OnOrderClicked) : RecyclerView.Adapter<
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         holder.pizzaName.text = orderList[position].name
-        holder.pizzaPrice.text = "${orderList[position].price} $"
+        holder.pizzaPrice.text = "${orderList[position].totalPrice} $"
         holder.pizzaQuantity.text = orderList[position].quantity.toString()
 
         holder.addQuantity.setOnClickListener {
@@ -60,7 +59,7 @@ class OrderAdapter(private val listener: OnOrderClicked) : RecyclerView.Adapter<
 }
 
 interface OnOrderClicked{
-    fun addQuantity(orderItem: OrderItem)
-    fun delQuantity(orderItem: OrderItem)
-    fun onDeleteClick(orderItem: OrderItem)
+    fun addQuantity(orderItem: Item)
+    fun delQuantity(orderItem: Item)
+    fun onDeleteClick(orderItem: Item)
 }

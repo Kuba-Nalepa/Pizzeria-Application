@@ -9,4 +9,12 @@
         <item name="android:insetRight">0dp</item>
         <item name="android:insetLeft">0dp</item>
     </style>
+
+    <style name="NoInsetButton">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="cornerRadius">0dp</item>
+    </style>
 </resources>

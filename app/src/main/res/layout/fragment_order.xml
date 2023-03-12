@@ -167,9 +167,9 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/makeOrder"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Submit order"
+            android:text="Go to checkout"
             android:textColor="@color/black"
             style="@style/DefaultButton"
             app:layout_constraintBottom_toBottomOf="parent"

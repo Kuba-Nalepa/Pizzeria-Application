@@ -7,16 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nalepa.pizzeriaapplication.OnOrderClicked
 import com.nalepa.pizzeriaapplication.OrderAdapter
 import com.nalepa.pizzeriaapplication.R
 import com.nalepa.pizzeriaapplication.data.order.Item
-import com.nalepa.pizzeriaapplication.data.order.Order
 import com.nalepa.pizzeriaapplication.databinding.FragmentOrderBinding
 import com.nalepa.pizzeriaapplication.viewmodel.SharedViewModel
-import java.sql.Date
 
 class OrderFragment : Fragment(), OnOrderClicked {
 
@@ -43,11 +42,13 @@ class OrderFragment : Fragment(), OnOrderClicked {
 
             binding.makeOrder.setOnClickListener {
 
-                val order = Order(
-                    date = Date(java.util.Date().time),
-                    items = itemList
-                )
-                viewModel.createOrder(order)
+//                val order = Order(
+//                    date = Date(java.util.Date().time),
+//                    items = itemList
+//                )
+//                viewModel.createOrder(order)
+                val action = OrderFragmentDirections.actionOrderFragmentToCheckoutFragment()
+                findNavController().navigate(action)
             }
         }
 

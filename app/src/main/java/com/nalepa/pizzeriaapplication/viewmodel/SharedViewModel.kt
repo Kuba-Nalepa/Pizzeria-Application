@@ -66,7 +66,12 @@ class SharedViewModel: ViewModel() {
     fun deleteOrder(orderItem: Item) {
         repository.deleteItem(orderItem)
     }
+
     fun updateOrderDetails(orderItem: Item) {
         repository.updateItemDetails(orderItem)
+    }
+
+    fun logout() {
+        repository.logout()
     }
 }

@@ -14,8 +14,17 @@ abstract class BaseFragment: Fragment() {
     }
 
     fun finishApp() {
+        val intent = Intent(activity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        intent.putExtra("LOGOUT", true)
+        startActivity(intent)
+
+        requireActivity().finish()
+    }
+
+    fun logout() {
         val intent = Intent(requireContext(), RegistrationActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.flags = (Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
     }
 }

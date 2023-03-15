@@ -46,8 +46,8 @@ class ProfileFragment : BaseFragment(), MenuProvider {
 
     private fun logoutFunction(menuItem: MenuItem): Boolean {
         if(menuItem.itemId == R.id.logoutAction) {
-            fbAuth.signOut()
-            finishApp()
+            viewModel.logout()
+            logout()
             return true
         }
         return false

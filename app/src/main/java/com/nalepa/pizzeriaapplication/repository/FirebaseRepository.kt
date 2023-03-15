@@ -142,4 +142,8 @@ class FirebaseRepository {
         cloud.collection("users").document(currentUser!!).collection("cart")
             .document(item.id).delete()
     }
+
+    fun logout() {
+        auth.signOut()
+    }
 }

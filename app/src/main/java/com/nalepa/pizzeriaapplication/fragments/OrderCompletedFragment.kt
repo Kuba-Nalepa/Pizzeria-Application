@@ -2,13 +2,11 @@ package com.nalepa.pizzeriaapplication.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavDeepLinkBuilder
+import androidx.appcompat.app.AppCompatActivity
 import com.nalepa.pizzeriaapplication.BaseFragment
-import com.nalepa.pizzeriaapplication.R
 import com.nalepa.pizzeriaapplication.activities.MainActivity
 import com.nalepa.pizzeriaapplication.databinding.FragmentOrderCompletedBinding
 
@@ -17,11 +15,15 @@ class OrderCompletedFragment : BaseFragment() {
 
     private lateinit var binding: FragmentOrderCompletedBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentOrderCompletedBinding.inflate(layoutInflater)
         return binding.root
@@ -40,5 +42,10 @@ class OrderCompletedFragment : BaseFragment() {
             finishApp()
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
     }
 }

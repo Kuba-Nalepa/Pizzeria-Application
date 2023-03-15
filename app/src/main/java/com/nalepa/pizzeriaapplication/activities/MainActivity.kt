@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 
         setupNavBarAndActionBar()
 
+        closeApplication()
+
     }
 
     private fun setupNavBarAndActionBar() {
@@ -38,5 +40,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration)
+    }
+
+    private fun closeApplication() {
+        if (intent.getBooleanExtra("LOGOUT", false))
+        {
+            finish()
+        }
     }
 }

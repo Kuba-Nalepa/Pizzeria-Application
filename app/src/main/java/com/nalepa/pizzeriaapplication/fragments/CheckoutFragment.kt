@@ -30,7 +30,7 @@ class CheckoutFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val navBar = requireActivity().findViewById<BottomNavigationView>(com.nalepa.pizzeriaapplication.R.id.bottomNavigation)
         navBar.visibility = View.GONE
-        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+
 
     }
 
@@ -102,7 +102,7 @@ class CheckoutFragment : Fragment() {
         binding.apply {
             editText.setOnFocusChangeListener { _, hasFocus ->
                 if(!hasFocus) {
-                    editTextLayout.helperText = validInput(address)
+                    editTextLayout.helperText = validInput(editText)
                 }
             }
         }

@@ -49,7 +49,8 @@ class RegistrationFragment : Fragment() {
                                "",
                                "",
                                fbAuth.currentUser?.email!!,
-                               listOf()
+                               listOf(),
+                               ""
                            )
                            viewModel.createNewUser(user)
                            Snackbar.make(requireView(),"Successfully registered!", Snackbar.LENGTH_LONG).show()

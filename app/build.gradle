@@ -98,4 +98,10 @@ dependencies {
 
     // Splash screen
     implementation 'androidx.core:core-splashscreen:1.0.0'
+
+    // Dexter (permissions handler)
+    implementation 'com.karumi:dexter:6.2.3'
+
+    // Koil
+    implementation("io.coil-kt:coil:2.2.2")
 }

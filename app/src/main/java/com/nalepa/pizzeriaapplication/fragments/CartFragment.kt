@@ -14,12 +14,12 @@ import com.nalepa.pizzeriaapplication.OnOrderClicked
 import com.nalepa.pizzeriaapplication.OrderAdapter
 import com.nalepa.pizzeriaapplication.R
 import com.nalepa.pizzeriaapplication.data.order.Item
-import com.nalepa.pizzeriaapplication.databinding.FragmentOrderBinding
+import com.nalepa.pizzeriaapplication.databinding.FragmentCartBinding
 import com.nalepa.pizzeriaapplication.viewmodel.SharedViewModel
 
-class OrderFragment : Fragment(), OnOrderClicked {
+class CartFragment : Fragment(), OnOrderClicked {
 
-    private lateinit var binding: FragmentOrderBinding
+    private lateinit var binding: FragmentCartBinding
     private val viewModel by viewModels<SharedViewModel>()
     private val myAdapter = OrderAdapter(this)
 
@@ -28,7 +28,7 @@ class OrderFragment : Fragment(), OnOrderClicked {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentOrderBinding.inflate(layoutInflater)
+        binding = FragmentCartBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -36,18 +36,14 @@ class OrderFragment : Fragment(), OnOrderClicked {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.userItems.observe(viewLifecycleOwner) { itemList ->
+            setProperLayout(itemList)
             myAdapter.setCurrentUserOrder(itemList)
 
             calculatePrice(itemList)
 
             binding.makeOrder.setOnClickListener {
 
-//                val order = Order(
-//                    date = Date(java.util.Date().time),
-//                    items = itemList
-//                )
-//                viewModel.createOrder(order)
-                val action = OrderFragmentDirections.actionOrderFragmentToCheckoutFragment()
+                val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment()
                 findNavController().navigate(action)
             }
         }
@@ -100,6 +96,22 @@ class OrderFragment : Fragment(), OnOrderClicked {
         }
         val totalCost = sum + deliveryPrice
         binding.totalCost.text = String.format(getString(R.string.pizza_price), totalCost)
+
+    }
+
+    private fun setProperLayout(itemList: List<Item>) {
+        binding.apply {
+            if(itemList.isEmpty()) {
+                linearLayoutOutside.visibility = View.GONE
+                emptyCartImage.visibility = View.VISIBLE
+                emptyCartText.visibility = View.VISIBLE
+                makeOrder.isEnabled = false
+            }   else {
+                emptyCartImage.visibility = View.INVISIBLE
+                emptyCartText.visibility = View.INVISIBLE
+                makeOrder.isEnabled = true
+            }
+        }
 
     }
 }

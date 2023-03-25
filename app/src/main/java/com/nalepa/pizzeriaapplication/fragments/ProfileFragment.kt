@@ -1,19 +1,34 @@
 package com.nalepa.pizzeriaapplication.fragments
 
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
-import com.google.firebase.auth.FirebaseAuth
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.bumptech.glide.Glide
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import com.nalepa.pizzeriaapplication.BaseFragment
+import com.nalepa.pizzeriaapplication.FavouritesAdapter
 import com.nalepa.pizzeriaapplication.R
 import com.nalepa.pizzeriaapplication.databinding.FragmentProfileBinding
 import com.nalepa.pizzeriaapplication.viewmodel.SharedViewModel
 
 class ProfileFragment : BaseFragment(), MenuProvider {
-    private var fbAuth = FirebaseAuth.getInstance()
+
     private val viewModel by viewModels<SharedViewModel>()
     private lateinit var binding: FragmentProfileBinding
+    private val favouritesAdapter = FavouritesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +42,29 @@ class ProfileFragment : BaseFragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.addMenuProvider(this)
+        val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            viewModel.uploadUserImage(uri!!)
+            Toast.makeText(requireContext(),"Waiting for server", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.avatarImage.setOnClickListener {
+            checkGalleryPermission(getContent)
+        }
+
+        binding.setProfileInfoButton.setOnClickListener {
+            updateUserName()
+        }
 
         setProfileDetails()
+
+        binding.favouritesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.favouritesRecyclerView.adapter = favouritesAdapter
+        viewModel.favourites.observe(viewLifecycleOwner) { favouritesList ->
+
+            Log.d("FAV", favouritesList.toString())
+            favouritesAdapter.setFavouritePizzas(favouritesList)
+
+        }
     }
 
     override fun onDestroyView() {
@@ -55,14 +91,53 @@ class ProfileFragment : BaseFragment(), MenuProvider {
 
     private fun setProfileDetails() {
         viewModel.user.observe(viewLifecycleOwner) { user ->
-            binding.emailTextView.text = user?.email
-            if(user?.name == "") {
-                binding.nameTextView.text = "Set name"
-            } else binding.nameTextView.text = user?.name
-            if(user.surname == "") {
-                binding.surnameTextView.text = "Set surname"
-            } else binding.surnameTextView.text = user?.surname
+            binding.emailTextView.setText(user?.email)
+
+            binding.nameTextView.setText(user?.name)
+            binding.surnnameTextView.setText(user?.surname)
+
+            if(user.image == "") {
+                return@observe
+            } else {
+                Glide.with(requireContext())
+                    .load(user.image)
+                    .placeholder(R.drawable.loading_animation)
+                    .into(binding.avatarImage)
+            }
         }
+    }
+
+    private fun checkGalleryPermission(content: ActivityResultLauncher<String>) {
+        Dexter
+            .withContext(requireContext())
+            .withPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            .withListener(object : PermissionListener{
+                override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
+                    content.launch("image/*")
+                }
+
+                override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Permission denied",
+                        Toast.LENGTH_SHORT).show()
+
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    p0: PermissionRequest?,
+                    p1: PermissionToken?
+                ) {
+                    p1?.continuePermissionRequest()
+                }
+
+            }).onSameThread().check()
+    }
+
+    private fun updateUserName() {
+        val name = binding.nameTextView.text.toString()
+        val surname = binding.surnnameTextView.text.toString()
+        viewModel.updateUserName(name, surname)
     }
 
 }

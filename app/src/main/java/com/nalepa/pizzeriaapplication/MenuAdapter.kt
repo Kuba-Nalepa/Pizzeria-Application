@@ -24,6 +24,7 @@ class MenuAdapter(private val listener: OnPizzaItemClick): RecyclerView.Adapter<
         val pizzaName = binding.pizzaName
         val pizzaImage = binding.pizzaImage
         val pizzaPrice = binding.pizzaPrice
+        val pizzaIngredients = binding.pizzaIngredients
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
@@ -42,6 +43,7 @@ class MenuAdapter(private val listener: OnPizzaItemClick): RecyclerView.Adapter<
                 listener.onPizzaClick(menuList[position], position)
         }
         holder.pizzaName.text = menuList[position].name
+        holder.pizzaIngredients.text = menuList[position].ingredients.joinToString (", ")
         Glide.with(holder.itemView)
             .load(menuList[holder.adapterPosition].image)
             .into(holder.pizzaImage)

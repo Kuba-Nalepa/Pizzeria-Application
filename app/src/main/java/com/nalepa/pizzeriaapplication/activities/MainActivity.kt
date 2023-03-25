@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNav = binding.bottomNavigation
         bottomNav.setupWithNavController(navController)
 
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.profileFragment, R.id.orderFragment))
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.profileFragment, R.id.cartFragment))
         setupActionBarWithNavController(navController, appBarConfiguration)
 
     }

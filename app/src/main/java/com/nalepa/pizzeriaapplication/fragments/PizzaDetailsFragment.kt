@@ -37,30 +37,20 @@ class PizzaDetailsFragment : Fragment() {
         viewModel.pizza.observe(viewLifecycleOwner) { pizza ->
             bindViews(pizza)
 
-            binding.pizzaSize.setOnCheckedChangeListener { _, checkedId ->
-                pizza.sizes.apply {
-                    when(checkedId) {
-                        binding.small.id -> {
-                            viewModel.setPizzaSize(small)
+            handlePizzaSizeOptions(pizza)
 
-                        }
-                        binding.medium.id -> {
-                            viewModel.setPizzaSize(medium)
-
-                        }
-                        binding.large.id -> {
-                            viewModel.setPizzaSize(large)
-
-                        }
-                    }
-                }
-            }
             handleAddItemToCart()
+
+            viewModel.retrieveFavouriteStatus(pizza.id!!)
+
+            viewModel.status.observe(viewLifecycleOwner) { status ->
+                handleFavouriteStatus(status, pizza)
+            }
         }
 
-        viewModel.pizzaSize.observe(viewLifecycleOwner) {
-            binding.pizzaPrice.text = String.format(getString(R.string.pizza_price), it.price)
-            binding.pizzaDiameter.text = String.format(getString(R.string.pizza_diameter), it.diameter)
+        viewModel.pizzaSize.observe(viewLifecycleOwner) {   pizzaSize ->
+            binding.pizzaPrice.text = String.format(getString(R.string.pizza_price), pizzaSize.price)
+            binding.pizzaDiameter.text = String.format(getString(R.string.pizza_diameter), pizzaSize.diameter)
 
             handleAddItemToCart()
         }
@@ -113,6 +103,43 @@ class PizzaDetailsFragment : Fragment() {
         viewModel.apply {
             if (pizza.value != null && pizzaSize.value != null && quantity.value != null ) {
                 binding.addToCart.isEnabled = quantity.value != 0 && pizzaSize.value != PizzaSize()
+            }
+        }
+    }
+
+    private fun handleFavouriteStatus(status: Boolean, pizza: Pizza) {
+        if(status) {
+            binding.favouriteIcon.setImageResource(R.drawable.ic_favorite_filled)
+        } else binding.favouriteIcon.setImageResource(R.drawable.ic_favorite)
+
+        binding.favouriteIcon.setOnClickListener {
+
+            if(status) {
+                viewModel.deleteFavouritePizza(pizza.id!!)
+            } else {
+                viewModel.addPizzaToFavourites(pizza)
+
+            }
+        }
+    }
+
+    private fun handlePizzaSizeOptions(pizza: Pizza) {
+        binding.pizzaSize.setOnCheckedChangeListener { _, checkedId ->
+            pizza.sizes.apply {
+                when(checkedId) {
+                    binding.small.id -> {
+                        viewModel.setPizzaSize(small)
+
+                    }
+                    binding.medium.id -> {
+                        viewModel.setPizzaSize(medium)
+
+                    }
+                    binding.large.id -> {
+                        viewModel.setPizzaSize(large)
+
+                    }
+                }
             }
         }
     }

@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="orderFragment"
-            type="com.nalepa.pizzeriaapplication.fragments.OrderFragment" />
+            name="cartFragment"
+            type="com.nalepa.pizzeriaapplication.fragments.CartFragment" />
 
     </data>
 
@@ -23,11 +23,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:context=".fragments.OrderFragment">
+            tools:context=".fragments.CartFragment">
 
             <LinearLayout
+                android:id="@+id/linearLayoutOutside"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
 
@@ -163,6 +164,31 @@
             </LinearLayout>
 
         </ScrollView>
+
+        <ImageView
+            android:id="@+id/emptyCartImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_cart"
+            app:layout_constraintBottom_toTopOf="@+id/makeOrder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/emptyCartText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your cart is empty"
+            android:textSize="20sp"
+            android:textStyle="italic|bold"
+            android:textColor="#CBCBCB"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emptyCartImage" />
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/makeOrder"

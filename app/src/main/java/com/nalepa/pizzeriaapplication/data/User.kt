@@ -7,5 +7,6 @@ data class User(
     val name: String = "",
     val surname: String = "",
     val email: String = "",
-    val orders: List<Cart> = listOf()
+    val orders: List<Cart> = listOf(),
+    val image: String = ""
 )

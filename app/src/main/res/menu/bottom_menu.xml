@@ -15,8 +15,8 @@
         />
 
     <item
-        android:id="@+id/order"
+        android:id="@+id/cart"
         android:icon="@drawable/menu_icon_shopping_cart"
-        android:title="Order"
+        android:title="Cart"
         />
 </menu>

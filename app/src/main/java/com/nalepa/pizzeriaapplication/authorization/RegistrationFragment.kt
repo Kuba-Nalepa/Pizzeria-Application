@@ -1,6 +1,7 @@
 package com.nalepa.pizzeriaapplication.authorization
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.nalepa.pizzeriaapplication.data.User
 import com.nalepa.pizzeriaapplication.databinding.FragmentRegistrationBinding
@@ -30,37 +33,79 @@ class RegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val listOfInputs = listOf(
+            Pair(binding.email, binding.emailContainer),
+            Pair(binding.password, binding.passwordContainer),
+            Pair(binding.confirmPassword, binding.confirmPasswordContainer)
+        )
+
+        listOfInputs.forEach {
+            inputFocusListeners(it.first, it.second)
+        }
+
         setupRegistrationCLick()
     }
 
     private fun setupRegistrationCLick() {
-       binding.btnSubmit.setOnClickListener {
-           val email = binding.tfEmail.text.toString()
-           val password = binding.tfPassword.text.toString()
-           val confirmPassword = binding.tfConfirmPassword.text.toString()
+        binding.btnSubmit.setOnClickListener {
 
-           if(password == confirmPassword) {
-               fbAuth.createUserWithEmailAndPassword(email, password)
-                   .addOnSuccessListener {
+            val email = binding.email.text.toString()
+            val password = binding.password.text.toString()
+            val confirmPassword = binding.confirmPassword.text.toString()
 
-                       if(it.user != null) {
-                           val user = User(
-                               fbAuth.currentUser?.uid!!,
-                               "",
-                               "",
-                               fbAuth.currentUser?.email!!,
-                               listOf(),
-                               ""
-                           )
-                           viewModel.createNewUser(user)
-                           Snackbar.make(requireView(),"Successfully registered!", Snackbar.LENGTH_LONG).show()
-                           findNavController().navigateUp()
-                       }
-                   }
-                   .addOnFailureListener {
-                       Snackbar.make(requireView(), it.message.toString(), Snackbar.LENGTH_LONG).show()
-                   }
-           }
-       }
+            if(email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
+                if (password == confirmPassword) {
+                    fbAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnSuccessListener {
+
+                            if (it.user != null) {
+                                val user = User(
+                                    fbAuth.currentUser?.uid!!,
+                                    "",
+                                    "",
+                                    fbAuth.currentUser?.email!!,
+                                    ""
+                                )
+                                viewModel.createNewUser(user)
+                                Snackbar.make(
+                                    requireView(),
+                                    "Successfully registered!",
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                                findNavController().navigateUp()
+                            }
+                        }
+                        .addOnFailureListener {
+                            Snackbar.make(requireView(), it.message.toString(), Snackbar.LENGTH_LONG)
+                                .show()
+                        }
+                }
+            }   else {
+                Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_LONG)
+                    .show()
+            }
+        }
+    }
+
+        private fun inputFocusListeners(
+            editText: TextInputEditText,
+            editTextLayout: TextInputLayout
+        ) {
+            binding.apply {
+                editText.setOnFocusChangeListener { _, hasFocus ->
+                    if (!hasFocus) {
+                        editTextLayout.helperText = validInput(editText)
+                    }
+                }
+            }
+        }
+
+    private fun validInput(editText: TextInputEditText): String? {
+        binding.apply {
+            if (editText.text.toString().isEmpty()) {
+                return "Can not be empty"
+            }
+        }
+        return null
     }
 }

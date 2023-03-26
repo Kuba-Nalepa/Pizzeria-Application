@@ -28,7 +28,7 @@
             <LinearLayout
                 android:id="@+id/linearLayoutOutside"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
 
@@ -47,7 +47,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:gravity="center"
-                        android:text="Your order details"
+                        android:text="@string/your_order_details"
                         android:textSize="24sp"
                         android:textStyle="bold|italic" />
 
@@ -63,7 +63,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Your order is empty"
+                        android:text="@string/your_order_is_empty"
                         android:textStyle="bold|italic"
                         android:visibility="invisible" />
 
@@ -90,14 +90,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="0dp">
+                        android:paddingTop="15dp">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="6"
-                            android:text="Sum" />
+                            android:text="@string/sum" />
 
                         <TextView
                             android:id="@+id/sum"
@@ -113,14 +112,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="0dp">
+                        android:paddingTop="15dp">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="6"
-                            android:text="Delivery" />
+                            android:text="@string/delivery" />
 
                         <TextView
                             android:id="@+id/delevieryPrice"
@@ -135,15 +133,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="0dp">
+                        android:paddingTop="15dp">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             android:layout_weight="6"
-                            android:text="Total cost"
+                            android:text="@string/total_cost"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
 
@@ -173,13 +170,14 @@
             app:layout_constraintBottom_toTopOf="@+id/makeOrder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/add_items_to_your_order" />
 
         <TextView
             android:id="@+id/emptyCartText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your cart is empty"
+            android:text="@string/your_cart_is_empty"
             android:textSize="20sp"
             android:textStyle="italic|bold"
             android:textColor="#CBCBCB"
@@ -195,7 +193,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Go to checkout"
+            android:text="@string/go_to_checkout"
             android:textColor="@color/black"
             style="@style/DefaultButton"
             app:layout_constraintBottom_toBottomOf="parent"

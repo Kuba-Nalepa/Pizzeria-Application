@@ -22,134 +22,127 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/delivery_address"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp"/>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/addressContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="14dp"
+                    android:hint="@string/street_name_and_building_number"
+                    app:helperText="Required"
+                    app:helperTextTextColor="@color/design_default_color_error"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxBackgroundColor="@color/white">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Delivery address"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp"/>
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/addressContainer"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        android:hint="Street name and building number"
-                        app:helperText="Required"
-                        app:helperTextTextColor="@color/design_default_color_error"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:boxBackgroundColor="@color/white">
+                        android:inputType="text"/>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/postalCodeContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:hint="@string/postal_code"
+                    app:helperText="Required"
+                    app:helperTextTextColor="@color/design_default_color_error"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxBackgroundColor="@color/white">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/postalCodeContainer"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/postalCode"
+                        android:inputType="text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/cityContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:hint="@string/city"
+                    app:helperText="Required"
+                    app:helperTextTextColor="@color/design_default_color_error"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxBackgroundColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        android:hint="Postal code"
-                        app:helperText="Required"
-                        app:helperTextTextColor="@color/design_default_color_error"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:boxBackgroundColor="@color/white">
+                        android:inputType="textShortMessage"/>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/postalCode"
-                            android:inputType="text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/cityContainer"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:hint="@string/apartment_number"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxBackgroundColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/apartmentNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        android:hint="City"
-                        app:helperText="Required"
-                        app:helperTextTextColor="@color/design_default_color_error"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:boxBackgroundColor="@color/white">
+                        android:inputType="number"/>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/city"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textShortMessage"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:hint="@string/floor"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxBackgroundColor="@color/white">
 
-
-                    <com.google.android.material.textfield.TextInputLayout
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/floor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        android:hint="Apartment number"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:boxBackgroundColor="@color/white">
+                        android:inputType="number"/>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/apartmentNumber"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="120"
+                    android:hint="@string/add_note_for_delievery"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxBackgroundColor="@color/white">
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/msg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        android:hint="Floor"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:boxBackgroundColor="@color/white">
+                        android:minHeight="110dp"
+                        android:inputType="textMultiLine"/>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/floor"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="number"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="120"
-                        android:hint="Add note for delievery"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        app:boxBackgroundColor="@color/white">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/msg"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minHeight="110dp"
-                            android:inputType="textMultiLine"/>
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -161,7 +154,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="bottom"
-            android:text="Order and pay"
+            android:text="@string/order_and_pay"
             android:textColor="@color/black"
             style="@style/DefaultButton"
             app:layout_constraintBottom_toBottomOf="parent"

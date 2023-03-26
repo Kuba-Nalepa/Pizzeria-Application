@@ -53,7 +53,7 @@ class CartFragment : Fragment(), OnOrderClicked {
             orderRecyclerView.adapter = myAdapter
         }
 
-        }
+    }
 
     override fun addQuantity(orderItem: Item) {
         orderItem.quantity += 1

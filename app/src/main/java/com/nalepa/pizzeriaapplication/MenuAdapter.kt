@@ -1,7 +1,6 @@
 package com.nalepa.pizzeriaapplication
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +45,7 @@ class MenuAdapter(private val listener: OnPizzaItemClick): RecyclerView.Adapter<
         holder.pizzaIngredients.text = menuList[position].ingredients.joinToString (", ")
         Glide.with(holder.itemView)
             .load(menuList[holder.adapterPosition].image)
+            .placeholder(R.drawable.loading_animation)
             .into(holder.pizzaImage)
         holder.pizzaPrice.text = " Min. ${menuList[position].sizes.small.price} $"
     }

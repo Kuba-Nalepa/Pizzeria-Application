@@ -2,7 +2,6 @@ package com.nalepa.pizzeriaapplication.fragments
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -60,7 +59,6 @@ class ProfileFragment : BaseFragment(), MenuProvider {
         binding.favouritesRecyclerView.adapter = favouritesAdapter
         viewModel.favourites.observe(viewLifecycleOwner) { favouritesList ->
 
-            Log.d("FAV", favouritesList.toString())
             favouritesAdapter.setFavouritePizzas(favouritesList)
 
         }
@@ -96,6 +94,7 @@ class ProfileFragment : BaseFragment(), MenuProvider {
             binding.surnnameTextView.setText(user?.surname)
 
             if(user.image == "") {
+                binding.avatarImage.setImageResource(R.drawable.blank_avatar1)
                 return@observe
             } else {
                 Glide.with(requireContext())

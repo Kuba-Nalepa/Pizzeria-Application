@@ -1,12 +1,10 @@
 package com.nalepa.pizzeriaapplication.fragments
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,18 +17,16 @@ import com.nalepa.pizzeriaapplication.databinding.FragmentCheckoutBinding
 import com.nalepa.pizzeriaapplication.viewmodel.SharedViewModel
 import java.sql.Date
 
-
 class CheckoutFragment : Fragment() {
 
     private lateinit var binding: FragmentCheckoutBinding
     private val viewModel by viewModels<SharedViewModel>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val navBar = requireActivity().findViewById<BottomNavigationView>(com.nalepa.pizzeriaapplication.R.id.bottomNavigation)
+        val navBar =
+            requireActivity().findViewById<BottomNavigationView>(com.nalepa.pizzeriaapplication.R.id.bottomNavigation)
         navBar.visibility = View.GONE
-
 
     }
 

@@ -17,13 +17,13 @@
             android:id="@+id/pizzaImage"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/profile_image" />
     
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:orientation="horizontal">
@@ -33,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="22sp"
+                android:textStyle="italic|bold"
                 android:textColor="@color/black"
                 android:layout_gravity="center_vertical" />
     
@@ -50,16 +51,16 @@
                 android:id="@+id/favouriteIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:padding="5dp"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/add_to_favourites_icon" />
 
         </LinearLayout>
     
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ingredients"
+            android:text="@string/ingredients"
             android:paddingTop="10dp"
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
@@ -86,7 +87,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Size"
+            android:text="@string/size"
             android:paddingTop="10dp"
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
@@ -121,7 +122,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quantity"
+            android:text="@string/quantity"
             android:paddingTop="10dp"
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
@@ -132,14 +133,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="5dp">
+            android:paddingStart="5dp"
+            android:paddingEnd="0dp">
 
             <ImageButton
                 android:id="@+id/addQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_plus"
-                android:backgroundTint="@color/purple_500" />
+                android:backgroundTint="@color/purple_500"
+                android:contentDescription="@string/add_quantity" />
 
             <TextView
                 android:id="@+id/quantity"
@@ -156,7 +159,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_minus"
-                android:backgroundTint="@color/white"/>
+                android:backgroundTint="@color/white"
+                android:contentDescription="@string/subtract_quantity" />
 
 
         </LinearLayout>
@@ -171,7 +175,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/DefaultButton"
-                android:text="Add to cart"
+                android:text="@string/add_to_cart"
                 android:enabled="false" />
         </LinearLayout>
     

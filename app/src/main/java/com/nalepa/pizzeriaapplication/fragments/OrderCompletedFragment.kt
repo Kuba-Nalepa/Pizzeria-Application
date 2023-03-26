@@ -10,7 +10,6 @@ import com.nalepa.pizzeriaapplication.BaseFragment
 import com.nalepa.pizzeriaapplication.activities.MainActivity
 import com.nalepa.pizzeriaapplication.databinding.FragmentOrderCompletedBinding
 
-
 class OrderCompletedFragment : BaseFragment() {
 
     private lateinit var binding: FragmentOrderCompletedBinding

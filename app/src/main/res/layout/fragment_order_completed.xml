@@ -27,7 +27,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/check"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/ordered_successfully" />
 
 
                         <TextView
@@ -38,8 +39,7 @@
                             android:textAlignment="center"
                             android:padding="15dp"
                             android:textColor="@color/white"
-
-                            android:text="You have succesfully ordered pizza!"
+                            android:text="@string/you_have_successfully_ordered_pizza"
                             android:layout_gravity="center" />
 
 
@@ -55,7 +55,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:layout_marginEnd="10dp"
-                                    android:text="Main menu"
+                                    android:text="@string/main_menu"
                                     style="@style/NoInsetButton"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:layout_marginStart="10dp"
-                                    android:text="Close app"
+                                    android:text="@string/close_app"
                                     style="@style/NoInsetButton"
                                     android:backgroundTint="@color/black"
                                     app:layout_constraintBottom_toBottomOf="parent"

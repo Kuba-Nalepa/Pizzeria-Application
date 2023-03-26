@@ -1,6 +1,5 @@
 package com.nalepa.pizzeriaapplication.fragments
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ import com.nalepa.pizzeriaapplication.data.pizza.Pizza
 import com.nalepa.pizzeriaapplication.data.pizza.PizzaSize
 import com.nalepa.pizzeriaapplication.databinding.FragmentPizzaDetailsBinding
 import com.nalepa.pizzeriaapplication.viewmodel.SharedViewModel
-
 
 class PizzaDetailsFragment : Fragment() {
     private lateinit var binding: FragmentPizzaDetailsBinding
@@ -90,7 +88,10 @@ class PizzaDetailsFragment : Fragment() {
 
     private fun bindViews(pizza: Pizza) {
         binding.apply {
-            Glide.with(requireView()).load(pizza.image).into(binding.pizzaImage)
+            Glide.with(requireView())
+                .load(pizza.image)
+                .placeholder(R.drawable.loading_animation)
+                .into(binding.pizzaImage)
             pizzaName.text = pizza.name
             small.text = pizza.sizes.small.name
             medium.text = pizza.sizes.medium.name

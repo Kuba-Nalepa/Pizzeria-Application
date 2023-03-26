@@ -1,7 +1,6 @@
 package com.nalepa.pizzeriaapplication.authorization
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -43,21 +42,24 @@ class RegistrationFragment : Fragment() {
             inputFocusListeners(it.first, it.second)
         }
 
-        setupRegistrationCLick()
+        setupRegistrationCLick(listOfInputs)
     }
 
-    private fun setupRegistrationCLick() {
+    private fun setupRegistrationCLick(listOfInputs: List<Pair<TextInputEditText, TextInputLayout>>) {
         binding.btnSubmit.setOnClickListener {
 
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
             val confirmPassword = binding.confirmPassword.text.toString()
 
-            if(email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
+            val isAnyInputEmpty = listOfInputs.any {
+                it.first.text!!.isEmpty()
+            }
+
+            if(!isAnyInputEmpty) {
                 if (password == confirmPassword) {
                     fbAuth.createUserWithEmailAndPassword(email, password)
                         .addOnSuccessListener {
-
                             if (it.user != null) {
                                 val user = User(
                                     fbAuth.currentUser?.uid!!,
@@ -79,11 +81,9 @@ class RegistrationFragment : Fragment() {
                             Snackbar.make(requireView(), it.message.toString(), Snackbar.LENGTH_LONG)
                                 .show()
                         }
-                }
-            }   else {
-                Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_LONG)
-                    .show()
-            }
+                }   else Snackbar.make(requireView(), "Password must be the same", Snackbar.LENGTH_LONG).show()
+            }   else Snackbar.make(requireView(), "Please fill in all fields", Snackbar.LENGTH_LONG).show()
+
         }
     }
 

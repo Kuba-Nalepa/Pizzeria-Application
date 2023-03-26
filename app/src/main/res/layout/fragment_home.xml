@@ -10,7 +10,7 @@
         </data>
         
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         
@@ -29,7 +29,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Your pizza's friends"
+                                    android:text="@string/your_pizza_s_friends"
                                     android:textSize="16sp"
                                     android:textStyle="italic"
                                     android:textAlignment="center"
@@ -50,5 +50,5 @@
         
         
         
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 </layout>

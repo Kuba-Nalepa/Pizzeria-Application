@@ -35,7 +35,7 @@ class FirebaseRepository {
     fun createOrder(order: Order) {
         cloud.collection(users).document(currentUser!!).collection(cart)
             .get().addOnSuccessListener {
-                cloud.collection("users").document(currentUser).collection(this.order)
+                cloud.collection(users).document(currentUser).collection(this.order)
                     .add(order)
                     .addOnSuccessListener {
                         it.update("id", it.id)
@@ -92,7 +92,7 @@ class FirebaseRepository {
     fun getMenuList() : LiveData<List<Pizza>> {
         val cloudResult = MutableLiveData<List<Pizza>>()
 
-        cloud.collection("menu_demo").get()
+        cloud.collection(menu).get()
             .addOnSuccessListener {
                 val menu = it.documents.map { doc ->
                     val pizza = doc.toObject(Pizza::class.java)!!
@@ -127,7 +127,7 @@ class FirebaseRepository {
     fun getPizzaDetails(id: String): LiveData<Pizza> {
 
         val cloudResult = MutableLiveData<Pizza>()
-        cloud.collection("menu_demo").document(id).get()
+        cloud.collection(menu).document(id).get()
             .addOnSuccessListener {
                 val pizzaDetails = it.toObject(Pizza::class.java)
                 pizzaDetails?.id = it.id
